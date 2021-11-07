@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const index = () => {
+export const Header = () => {
   return (
     <div>
-      <h1>Hello World</h1>
+      <h1>Header</h1>
     </div>
   );
 };
