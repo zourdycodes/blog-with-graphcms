@@ -13,6 +13,7 @@ const posts = [
     excerpt: 'of react interview',
   },
 ];
+
 export default function Home() {
   return (
     <Layout>

@@ -3,6 +3,21 @@ import Link from 'next/link';
 
 import { Layout } from '../templates/Layout';
 
+const categories = [
+  {
+    name: 'Web Development',
+    slug: 'webdev',
+  },
+  {
+    name: 'Ethical Hacking',
+    slug: 'ethical-hacking',
+  },
+  {
+    name: 'Travelling',
+    slug: 'travelling',
+  },
+];
+
 export const Header = () => {
   return (
     <Layout header>
@@ -13,6 +28,16 @@ export const Header = () => {
               Muhammad Zourdy
             </span>
           </Link>
+        </div>
+
+        <div className="hidden md:float-left md:contents">
+          {categories.map((category, index) => (
+            <Link key={index} href={`/category/${category.slug}`} passHref>
+              <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
+                {category.name}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </Layout>
