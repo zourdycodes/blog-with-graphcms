@@ -20,7 +20,7 @@ export const Categories = () => {
               index === categories.length - 1 ? 'border-b-0' : 'border-b'
             } pb-3 mb-3`}
           >
-            {category.name}
+            # {category.name}
           </span>
         </Link>
       ))}

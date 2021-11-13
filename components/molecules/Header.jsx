@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Layout } from '../templates/Layout';
 
-const categories = [
-  {
-    name: 'Web Development',
-    slug: 'webdev',
-  },
-  {
-    name: 'Ethical Hacking',
-    slug: 'ethical-hacking',
-  },
-  {
-    name: 'Travelling',
-    slug: 'travelling',
-  },
-];
+import { getCategories } from '../../services/contentManagement';
 
 export const Header = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories().then((newCategories) => setCategories(newCategories));
+  }, []);
   return (
     <Layout header>
       <div className="border-b w-full inline-block border-blue-400 py-8">
