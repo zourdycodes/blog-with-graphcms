@@ -1,12 +1,16 @@
 import React from 'react';
 import { useRouter } from 'next/dist/client/router';
 
+// components
 import { Author } from '../../components/molecules/Author';
 import { Layout } from '../../components/templates/Layout';
 import { Loader } from '../../components/molecules/Loader';
 import { PostDetail } from '../../components/organisms/PostDetail';
 import { Categories } from '../../components/molecules/Categories';
 import { PostWidget } from '../../components/molecules/PostWidget';
+
+// services
+import { getPosts, getPostDetails } from '../../services/contentManagement';
 
 const PostDetailsPage = ({ post }) => {
   const router = useRouter();
@@ -38,3 +42,19 @@ const PostDetailsPage = ({ post }) => {
 };
 
 export default PostDetailsPage;
+
+export async function getStaticProps({ params }) {
+  const result = await getPostDetails(params.slug);
+
+  return {
+    props: { post: result },
+  };
+}
+
+export async function getStaticPaths() {
+  const postsPath = await getPosts();
+  return {
+    paths: postsPath.map(({ node: { slug } }) => ({ params: { slug } })),
+    fallback: true,
+  };
+}
