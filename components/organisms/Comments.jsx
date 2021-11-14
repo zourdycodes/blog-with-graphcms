@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const PostDetail = () => {
+export const Comments = () => {
   return (
     <div>
-      <h1>Post Detail</h1>
+      <h1>Comments</h1>
     </div>
   );
 };

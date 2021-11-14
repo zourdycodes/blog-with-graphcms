@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const PostDetail = () => {
+export const Author = () => {
   return (
     <div>
-      <h1>Post Detail</h1>
+      <h1>Author</h1>
     </div>
   );
 };
