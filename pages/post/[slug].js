@@ -10,6 +10,7 @@ import { PostDetail } from '../../components/organisms/PostDetail';
 import { Categories } from '../../components/molecules/Categories';
 import { PostWidget } from '../../components/molecules/PostWidget';
 import { CommentForm } from '../../components/organisms/CommentForm';
+import { AdjacentPosts } from '../../components/organisms/AdjacentPosts';
 
 // services
 import { getPosts, getPostDetails } from '../../services/contentManagement';
@@ -27,6 +28,7 @@ const PostDetailsPage = ({ post }) => {
         <div className="col-span-1 lg:col-span-8">
           <PostDetail post={post} />
           <Author author={post.author} />
+          <AdjacentPosts slug={post.slug} createdAt={post.createdAt} />
           <CommentForm slug={post.slug} />
           <Comments slug={post.slug} />
         </div>
