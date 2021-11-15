@@ -1,6 +1,7 @@
 import React from 'react';
 
 import moment from 'moment';
+// import Markdown from 'markdown-to-jsx';
 
 export const PostDetail = ({ post }) => {
   const getContentFragment = (index, text, obj, type) => {
@@ -72,7 +73,7 @@ export const PostDetail = ({ post }) => {
         </div>
         <div className="px-4 lg:px-0">
           <div className="flex items-center mb-8 w-full">
-            <div className="hidden md:flex items-center justify-center lg:mb-0 lg:w-auto mr-8 items-center">
+            <div className="hidden md:flex justify-center lg:mb-0 lg:w-auto mr-8 items-center">
               <img
                 alt={post.author.name}
                 height="30px"
@@ -112,6 +113,8 @@ export const PostDetail = ({ post }) => {
 
             return getContentFragment(index, children, typeObj, typeObj.type);
           })}
+
+          {/* <Markdown>{post.content.markdown}</Markdown> */}
         </div>
       </div>
     </>
