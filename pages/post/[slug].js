@@ -5,9 +5,11 @@ import { useRouter } from 'next/dist/client/router';
 import { Author } from '../../components/molecules/Author';
 import { Layout } from '../../components/templates/Layout';
 import { Loader } from '../../components/molecules/Loader';
+import { Comments } from '../../components/organisms/Comments';
 import { PostDetail } from '../../components/organisms/PostDetail';
 import { Categories } from '../../components/molecules/Categories';
 import { PostWidget } from '../../components/molecules/PostWidget';
+import { CommentForm } from '../../components/organisms/CommentForm';
 
 // services
 import { getPosts, getPostDetails } from '../../services/contentManagement';
@@ -25,6 +27,8 @@ const PostDetailsPage = ({ post }) => {
         <div className="col-span-1 lg:col-span-8">
           <PostDetail post={post} />
           <Author author={post.author} />
+          <CommentForm slug={post.slug} />
+          <Comments slug={post.slug} />
         </div>
 
         <div className="col-span-1 lg:col-span-4">
