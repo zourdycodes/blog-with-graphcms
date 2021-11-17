@@ -8,7 +8,21 @@ import {
   getSimilarPosts,
 } from '../../services/contentManagement';
 
-export const PostWidget = ({ categories, slug }) => {
+interface Props {
+  categories?: any;
+  slug?: any;
+}
+
+interface PostData {
+  title: string;
+  featuredImage: {
+    url: string;
+  };
+  slug: string;
+  createdAt: string;
+}
+
+export const PostWidget: React.FC<Props> = ({ categories, slug }) => {
   const [relatedPosts, setRelatedPosts] = useState([]);
 
   useEffect(() => {
@@ -29,7 +43,7 @@ export const PostWidget = ({ categories, slug }) => {
         {slug ? 'Related Posts' : ' Recent Posts'}
       </h3>
 
-      {relatedPosts.map((post, index) => {
+      {relatedPosts.map((post: PostData, index) => {
         return (
           <div key={index} className="flex items-center w-full mb-4">
             <div className="w-16 flex-none">
@@ -47,13 +61,8 @@ export const PostWidget = ({ categories, slug }) => {
               <p className="text-gray-500 font-xs">
                 {moment(post.createdAt).format('MMM DD, YYYY')}
               </p>
-              <Link
-                href={`/post/${post.slug}`}
-                passHref
-                className="text-md"
-                key={index}
-              >
-                {post.title}
+              <Link href={`/post/${post.slug}`} passHref key={index}>
+                <span className="text-md">{post.title}</span>
               </Link>
             </div>
           </div>

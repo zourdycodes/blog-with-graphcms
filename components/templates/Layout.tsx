@@ -1,13 +1,19 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 import Head from 'next/head';
 
-export const Layout = ({ children, header, ...customMeta }) => {
+interface Props {
+  children: ReactNode;
+  header?: boolean | undefined;
+  date?: string;
+}
+
+export const Layout: FC<Props> = ({ children, header = false, date }) => {
   const meta = {
     title: 'Muhammad Zourdy | Software Engineer',
     description: `Front End Software Engineer | traveller | hiking | explorer`,
     type: 'website',
     image: '../public/images/ccp.png',
-    ...customMeta,
+    date,
   };
 
   return (

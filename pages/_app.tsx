@@ -1,12 +1,13 @@
+import type { AppProps } from 'next/app';
 import { Wrapper } from '../components/templates/Wrapper';
 import '../styles/global.scss';
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <Wrapper>
       <Component {...pageProps} />
     </Wrapper>
   );
-}
+};
 
 export default MyApp;

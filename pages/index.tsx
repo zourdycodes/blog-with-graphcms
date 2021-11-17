@@ -1,3 +1,6 @@
+import type { NextPage } from 'next';
+import { GetStaticProps } from 'next';
+
 import { Layout } from '../components/templates/Layout';
 import { PostCard } from '../components/organisms/PostCard';
 import { PostWidget } from '../components/molecules/PostWidget';
@@ -5,7 +8,38 @@ import { Categories } from '../components/molecules/Categories';
 
 import { getPosts } from '../services/contentManagement';
 
-export default function Home({ posts }) {
+interface CategoriesData {
+  name: string;
+  slug: string;
+}
+
+interface PostsData {
+  cursor: string;
+  node: {
+    author: {
+      bio: string;
+      name: string;
+      id: string;
+      photo: {
+        url: string;
+      };
+    };
+    createdAt: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    featuredImage: {
+      url: string;
+    };
+    categories: Array<CategoriesData>;
+  };
+}
+
+interface Props {
+  posts: Array<PostsData>;
+}
+
+const Home: NextPage<Props> = ({ posts }) => {
   return (
     <Layout>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -24,12 +58,14 @@ export default function Home({ posts }) {
       </div>
     </Layout>
   );
-}
+};
 
 // Fetch data at build time
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = (await getPosts()) || [];
   return {
     props: { posts },
   };
-}
+};
+
+export default Home;
