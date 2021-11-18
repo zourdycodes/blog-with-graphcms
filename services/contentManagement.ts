@@ -1,6 +1,19 @@
 import { request, gql } from 'graphql-request';
 
-const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
+interface ObjectFormData {
+  name: string;
+  email: string;
+  comment: string;
+  storeData: boolean;
+}
+
+interface CategoriesData {
+  name: string;
+  slug: string;
+}
+
+const graphqlAPI: string | undefined =
+  process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT ?? '';
 
 export const getPosts = async () => {
   const query = gql`
@@ -35,7 +48,6 @@ export const getPosts = async () => {
   `;
 
   const result = await request(graphqlAPI, query);
-  console.log(result);
   return result.postsConnection.edges;
 };
 
@@ -54,7 +66,7 @@ export const getCategories = async () => {
   return result.categories;
 };
 
-export const getPostDetails = async (slug) => {
+export const getPostDetails = async (slug: string) => {
   const query = gql`
     query GetPostDetails($slug: String!) {
       post(where: { slug: $slug }) {
@@ -88,7 +100,10 @@ export const getPostDetails = async (slug) => {
   return result.post;
 };
 
-export const getSimilarPosts = async (categories, slug) => {
+export const getSimilarPosts = async (
+  categories: Array<CategoriesData>,
+  slug: string
+) => {
   const query = gql`
     query GetPostDetails($slug: String!, $categories: [String!]) {
       posts(
@@ -112,7 +127,7 @@ export const getSimilarPosts = async (categories, slug) => {
   return result.posts;
 };
 
-export const getAdjacentPosts = async (createdAt, slug) => {
+export const getAdjacentPosts = async (createdAt: string, slug: string) => {
   const query = gql`
     query GetAdjacentPosts($createdAt: DateTime!, $slug: String!) {
       next: posts(
@@ -147,7 +162,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
   return { next: result.next[0], previous: result.previous[0] };
 };
 
-export const getCategoryPost = async (slug) => {
+export const getCategoryPost = async (slug: string) => {
   const query = gql`
     query GetCategoryPost($slug: String!) {
       postsConnection(where: { categories_some: { slug: $slug } }) {
@@ -209,7 +224,7 @@ export const getFeaturedPosts = async () => {
   return result.posts;
 };
 
-export const submitComment = async (obj) => {
+export const submitComment = async (obj: ObjectFormData) => {
   const result = await fetch('/api/comments', {
     method: 'POST',
     headers: {
@@ -221,7 +236,7 @@ export const submitComment = async (obj) => {
   return result.json();
 };
 
-export const getComments = async (slug) => {
+export const getComments = async (slug: string) => {
   const query = gql`
     query GetComments($slug: String!) {
       comments(where: { post: { slug: $slug } }) {
