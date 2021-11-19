@@ -2,31 +2,38 @@ import React, { useState, useEffect } from 'react';
 
 import { AdjacentPostCard } from '../atoms/AdjacentPostCard';
 import { getAdjacentPosts } from '../../services/contentManagement';
+import { AdjacentData } from '../../types/data-types';
 
 interface Props {
   createdAt: string;
   slug: string;
 }
 
-interface AdjacentData {
-  title: string;
-  featuredImage: {
-    url: string;
-  };
-  createdAt: string;
-  slug: string;
-}
-
 interface AdjacentPostData {
-  next: Array<AdjacentData>;
-  previous: Array<AdjacentData>;
+  next: AdjacentData;
+  previous: AdjacentData;
 }
 
 export const AdjacentPosts: React.FC<Props> = ({ createdAt, slug }) => {
   const [adjacentPost, setAdjacentPost] = useState<AdjacentPostData>({
-    next: [],
-    previous: [],
+    next: {
+      title: '',
+      featuredImage: {
+        url: '',
+      },
+      createdAt: '',
+      slug: '',
+    },
+    previous: {
+      title: '',
+      featuredImage: {
+        url: '',
+      },
+      createdAt: '',
+      slug: '',
+    },
   });
+
   const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
   useEffect(() => {
@@ -42,7 +49,7 @@ export const AdjacentPosts: React.FC<Props> = ({ createdAt, slug }) => {
     <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 mb-8">
       {dataLoaded && (
         <>
-          {adjacentPost.previous && (
+          {adjacentPost.previous ? (
             <div
               className={`${
                 adjacentPost.next
@@ -52,8 +59,9 @@ export const AdjacentPosts: React.FC<Props> = ({ createdAt, slug }) => {
             >
               <AdjacentPostCard post={adjacentPost.previous} position="LEFT" />
             </div>
-          )}
-          {adjacentPost.next && (
+          ) : null}
+
+          {adjacentPost.next ? (
             <div
               className={`${
                 adjacentPost.previous
@@ -63,7 +71,7 @@ export const AdjacentPosts: React.FC<Props> = ({ createdAt, slug }) => {
             >
               <AdjacentPostCard post={adjacentPost.next} position="RIGHT" />
             </div>
-          )}
+          ) : null}
         </>
       )}
     </div>

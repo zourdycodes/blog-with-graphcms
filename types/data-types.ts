@@ -67,3 +67,12 @@ export interface PostsData {
 export interface ObjectType {
   bold: string;
 }
+
+export interface AdjacentData {
+  title: string;
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+  slug: string;
+}
