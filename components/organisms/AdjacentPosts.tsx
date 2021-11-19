@@ -3,9 +3,31 @@ import React, { useState, useEffect } from 'react';
 import { AdjacentPostCard } from '../atoms/AdjacentPostCard';
 import { getAdjacentPosts } from '../../services/contentManagement';
 
-export const AdjacentPosts = ({ createdAt, slug }) => {
-  const [adjacentPost, setAdjacentPost] = useState(null);
-  const [dataLoaded, setDataLoaded] = useState(false);
+interface Props {
+  createdAt: string;
+  slug: string;
+}
+
+interface AdjacentData {
+  title: string;
+  featuredImage: {
+    url: string;
+  };
+  createdAt: string;
+  slug: string;
+}
+
+interface AdjacentPostData {
+  next: Array<AdjacentData>;
+  previous: Array<AdjacentData>;
+}
+
+export const AdjacentPosts: React.FC<Props> = ({ createdAt, slug }) => {
+  const [adjacentPost, setAdjacentPost] = useState<AdjacentPostData>({
+    next: [],
+    previous: [],
+  });
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     getAdjacentPosts(createdAt, slug).then((result) => {

@@ -4,7 +4,17 @@ import parse from 'html-react-parser';
 
 import { getComments } from '../../services/contentManagement';
 
-export const Comments = ({ slug }) => {
+interface Props {
+  slug: string;
+}
+
+interface CommentData {
+  name: string;
+  createdAt: string;
+  comment: string;
+}
+
+export const Comments: React.FC<Props> = ({ slug }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -22,7 +32,7 @@ export const Comments = ({ slug }) => {
           <h3 className="text-xl mb-8 font-semibold border-b pb-4">
             {comments.length} Comments
           </h3>
-          {comments.map((comment, index) => (
+          {comments.map((comment: CommentData, index) => (
             <div key={index} className="border-b border-gray-100 mb-4 pb-4">
               <p className="mb-4">
                 <span className="font-semibold">{comment.name}</span> on{' '}

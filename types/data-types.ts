@@ -25,7 +25,11 @@ export interface PostData {
   createdAt: string;
   title: string;
   excerpt: string;
-  content: ContentData;
+  content: {
+    raw: {
+      children: Array<ContentData>;
+    };
+  };
   categories: CategoryData[];
   featuredImage: {
     url: string;
@@ -51,6 +55,15 @@ export interface PostsData {
       url: string;
     };
     categories: Array<CategoryData>;
-    content: ContentData;
+    content: {
+      raw: {
+        children: Array<ContentData>;
+      };
+    };
   };
+}
+
+// Post Fragments
+export interface ObjectType {
+  bold: string;
 }
