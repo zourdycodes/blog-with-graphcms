@@ -1,10 +1,10 @@
 import { request, gql } from 'graphql-request';
 
 interface ObjectFormData {
-  name: string;
-  email: string;
-  comment: string;
-  storeData: boolean;
+  name: string | null;
+  email: string | null;
+  comment: string | null;
+  storeData?: boolean;
 }
 
 interface CategoriesData {

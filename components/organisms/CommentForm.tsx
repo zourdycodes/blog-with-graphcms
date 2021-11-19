@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { submitComment } from '../../services/contentManagement';
 
-export const CommentForm = ({ slug }) => {
+interface Props {
+  slug: string;
+}
+
+interface FormData {
+  name: string;
+  email: string;
+  comment?: string;
+  storeData: boolean | undefined;
+}
+
+export const CommentForm: React.FC<Props> = ({ slug }) => {
   const [error, setError] = useState(false);
-  const [localStorage, setLocalStorage] = useState(null);
+  const [localStorage, setLocalStorage] = useState<Storage | any>();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [formData, setFormData] = useState({
-    name: null,
-    email: null,
-    comment: null,
+  const [formData, setFormData] = useState<FormData | any>({
+    name: '',
+    email: '',
+    comment: '',
     storeData: false,
   });
 
@@ -21,6 +32,7 @@ export const CommentForm = ({ slug }) => {
     const initialFormData = {
       name: window.localStorage.getItem('name'),
       email: window.localStorage.getItem('email'),
+      // comment: '...',
       storeData:
         window.localStorage.getItem('name') ||
         window.localStorage.getItem('email'),
@@ -29,15 +41,15 @@ export const CommentForm = ({ slug }) => {
     setFormData(initialFormData);
   }, []);
 
-  const controlledInput = (e) => {
+  const controlledInput = (e: ChangeEvent<HTMLInputElement> | any) => {
     const { target } = e;
     if (target.type === 'checkbox') {
-      setFormData((prevState) => ({
+      setFormData((prevState: FormData) => ({
         ...prevState,
         [target.name]: target.checked,
       }));
     } else {
-      setFormData((prevState) => ({
+      setFormData((prevState: FormData) => ({
         ...prevState,
         [target.name]: target.value,
       }));
@@ -77,7 +89,7 @@ export const CommentForm = ({ slug }) => {
         }
 
         formData.comment = '';
-        setFormData((prevState) => ({
+        setFormData((prevState: FormData) => ({
           ...prevState,
           ...formData,
         }));
@@ -93,7 +105,7 @@ export const CommentForm = ({ slug }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">
-        What's your thought?'
+        What's your thought?
       </h3>
       {/* COMPONENT FOR WRITING A COMMENT */}
       <div className="grid grid-cols-1 gap-4 mb-4">
