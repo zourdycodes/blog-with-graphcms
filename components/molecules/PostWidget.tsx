@@ -7,19 +7,11 @@ import {
   getRecentPosts,
   getSimilarPosts,
 } from '../../services/contentManagement';
+import { PostData } from '../../types/data-types';
 
 interface Props {
   categories?: any;
   slug?: any;
-}
-
-interface PostData {
-  title: string;
-  featuredImage: {
-    url: string;
-  };
-  slug: string;
-  createdAt: string;
 }
 
 export const PostWidget: React.FC<Props> = ({ categories, slug }) => {

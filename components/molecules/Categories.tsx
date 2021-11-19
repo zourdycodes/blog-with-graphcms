@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+import { CategoryData } from '../../types/data-types';
 import { getCategories } from '../../services/contentManagement';
-
-interface CategoriesData {
-  name: string;
-  slug: string;
-}
 
 export const Categories: React.FC = () => {
   const [categories, setCategories] = useState([]);
@@ -18,7 +14,7 @@ export const Categories: React.FC = () => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">Categories</h3>
-      {categories.map((category: CategoriesData, index: number) => (
+      {categories.map((category: CategoryData, index: number) => (
         <Link key={index} href={`/category/${category.slug}`} passHref>
           <span
             className={`cursor-pointer block ${

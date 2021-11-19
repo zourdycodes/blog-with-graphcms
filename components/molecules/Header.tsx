@@ -3,12 +3,8 @@ import Link from 'next/link';
 
 import { Layout } from '../templates/Layout';
 
+import { CategoryData } from '../../types/data-types';
 import { getCategories } from '../../services/contentManagement';
-
-interface CategoriesData {
-  name: string;
-  slug: string;
-}
 
 export const Header: React.FC = () => {
   const [categories, setCategories] = useState([]);
@@ -29,7 +25,7 @@ export const Header: React.FC = () => {
         </div>
 
         <div className="hidden md:float-left md:contents">
-          {categories.map((category: CategoriesData, index: number) => (
+          {categories.map((category: CategoryData, index: number) => (
             <Link key={index} href={`/category/${category.slug}`} passHref>
               <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
                 {category.name}

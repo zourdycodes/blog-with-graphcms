@@ -1,5 +1,8 @@
 import React from 'react';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
 // components
 import { Author } from '../../components/molecules/Author';
@@ -13,9 +16,22 @@ import { CommentForm } from '../../components/organisms/CommentForm';
 import { AdjacentPosts } from '../../components/organisms/AdjacentPosts';
 
 // services
+import { PostData } from '../../types/data-types';
 import { getPosts, getPostDetails } from '../../services/contentManagement';
 
-const PostDetailsPage = ({ post }) => {
+interface Paths {
+  node: { slug: string };
+}
+
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+interface Props {
+  post: PostData;
+}
+
+const PostDetailsPage: NextPage<Props> = ({ post }) => {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -49,18 +65,21 @@ const PostDetailsPage = ({ post }) => {
 
 export default PostDetailsPage;
 
-export async function getStaticProps({ params }) {
-  const result = await getPostDetails(params.slug);
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { slug } = context.params as IParams;
+  const result = await getPostDetails(slug);
 
   return {
     props: { post: result },
   };
-}
+};
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const postsPath = await getPosts();
   return {
-    paths: postsPath.map(({ node: { slug } }) => ({ params: { slug } })),
+    paths: postsPath.map(({ node: { slug } }: Paths) => ({
+      params: { slug },
+    })),
     fallback: true,
   };
-}
+};

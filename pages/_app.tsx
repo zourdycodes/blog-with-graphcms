@@ -1,4 +1,4 @@
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import { Wrapper } from '../components/templates/Wrapper';
 import '../styles/global.scss';
 

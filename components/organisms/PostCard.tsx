@@ -2,8 +2,13 @@ import React from 'react';
 import moment from 'moment';
 import Link from 'next/link';
 import Image from 'next/image';
+import { PostData } from '../../types/data-types';
 
-export const PostCard = ({ post }) => {
+interface Props {
+  post: PostData;
+}
+
+export const PostCard: React.FC<Props> = ({ post }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
       <div className="relative shadow-md inline-block w-full h-60 lg:h-[550px] mb-6">

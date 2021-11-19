@@ -1,13 +1,17 @@
 import { GraphQLClient, gql } from 'graphql-request';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
+const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT ?? '';
 
 /** *************************************************************
  * Any file inside the folder pages/api is mapped to /api/* and  *
  * will be treated as an API endpoint instead of a page.         *
  *************************************************************** */
 
-export default async function postComments(req, res) {
+export default async function postComments(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const graphQLClient = new GraphQLClient(graphqlAPI, {
     headers: {
       authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPHCMS_TOKEN}`,

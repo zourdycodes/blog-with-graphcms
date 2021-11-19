@@ -7,33 +7,7 @@ import { PostWidget } from '../components/molecules/PostWidget';
 import { Categories } from '../components/molecules/Categories';
 
 import { getPosts } from '../services/contentManagement';
-
-interface CategoriesData {
-  name: string;
-  slug: string;
-}
-
-interface PostsData {
-  cursor: string;
-  node: {
-    author: {
-      bio: string;
-      name: string;
-      id: string;
-      photo: {
-        url: string;
-      };
-    };
-    createdAt: string;
-    slug: string;
-    title: string;
-    excerpt: string;
-    featuredImage: {
-      url: string;
-    };
-    categories: Array<CategoriesData>;
-  };
-}
+import { PostsData } from '../types/data-types';
 
 interface Props {
   posts: Array<PostsData>;
